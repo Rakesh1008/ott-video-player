@@ -12,7 +12,57 @@ const thumbnailImg = document.querySelector(".thumbnail-img")
 const volumeSlider = document.querySelector(".volume-slider")
 const videoContainer = document.querySelector(".video-container")
 const timelineContainer = document.querySelector(".timeline-container")
+const settingBtn = document.querySelector(".setting-btn")
 const video = document.querySelector("video")
+
+//setting button
+settingBtn.addEventListener("click", settingPopup)
+
+let settingPopupDiv;
+let qualityDiv
+
+function settingPopup(){
+  if(document.getElementsByClassName("settingDiv").length == 0){
+    settingPopupDiv = document.createElement("div")
+    settingPopupDiv.setAttribute("class","settingDiv");
+    videoContainer.appendChild(settingPopupDiv)
+    qualitySelections()
+  } else {
+    var qualityPopup = document.getElementsByClassName("settingDiv");
+    qualityPopup[0].remove()
+  }
+}
+
+function qualitySelections(){
+  var playbackQuality = new playback_quality();
+    var availableQualitysSelections = playbackQuality.qualityResoulations();
+    const availableQualitys = hls.levels.map((l) => l.height)
+
+    for(var i=0; i<availableQualitys.length; i++){
+      if(availableQualitys[i] >= 480){
+      for(var j=0; j<availableQualitysSelections.length;j++){
+          if(availableQualitysSelections[j].height === availableQualitys[i]){
+            qualityDiv= document.createElement("div")
+            qualityDiv.setAttribute("class", "qualityDiv")
+            qualityDiv.setAttribute("id", availableQualitys[i])
+            qualityDiv.innerHTML = availableQualitysSelections[j].quality
+            settingPopupDiv.appendChild(qualityDiv)
+
+            qualityDiv.addEventListener("click", function (e) {
+              const findQualityHeight = availableQualitys.find(number => number == e.target.getAttribute('id'));
+              const findQualityIndex = availableQualitys.findIndex((number) => number == findQualityHeight);
+              console.log("found", findQualityHeight, findQualityIndex);
+              hls.currentLevel = findQualityIndex
+            });
+          }
+        }
+      }
+    }
+}
+
+function myFunction() {
+  console.log("Click Event");
+}
 
 document.addEventListener("keydown", e => {
   const tagName = document.activeElement.tagName.toLowerCase()
@@ -52,14 +102,14 @@ document.addEventListener("keydown", e => {
 })
 
 // Timeline
-timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
+// timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
 timelineContainer.addEventListener("mousedown", toggleScrubbing)
 document.addEventListener("mouseup", e => {
   if (isScrubbing) toggleScrubbing(e)
 })
-document.addEventListener("mousemove", e => {
-  if (isScrubbing) handleTimelineUpdate(e)
-})
+// document.addEventListener("mousemove", e => {
+//   if (isScrubbing) handleTimelineUpdate(e)
+// })
 
 let isScrubbing = false
 let wasPaused
@@ -76,7 +126,7 @@ function toggleScrubbing(e) {
     if (!wasPaused) video.play()
   }
 
-  handleTimelineUpdate(e)
+  // handleTimelineUpdate(e)
 }
 
 function handleTimelineUpdate(e) {
@@ -111,13 +161,13 @@ function changePlaybackSpeed() {
 const captions = video.textTracks[0]
 captions.mode = "hidden"
 
-captionsBtn.addEventListener("click", toggleCaptions)
+// captionsBtn.addEventListener("click", toggleCaptions)
 
-function toggleCaptions() {
-  const isHidden = captions.mode === "hidden"
-  captions.mode = isHidden ? "showing" : "hidden"
-  videoContainer.classList.toggle("captions", isHidden)
-}
+// function toggleCaptions() {
+//   const isHidden = captions.mode === "hidden"
+//   captions.mode = isHidden ? "showing" : "hidden"
+//   videoContainer.classList.toggle("captions", isHidden)
+// }
 
 // Duration
 video.addEventListener("loadeddata", () => {
