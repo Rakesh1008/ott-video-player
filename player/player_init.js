@@ -25,14 +25,8 @@ function init(){
         window.hls = new Hls();
         hls.loadSource(videoSrc);
 
-        hls.on(Hls.Events.MANIFEST_LOADED,function(event, data){
-            console.log("manifest loaded")
-        })
-
-        hls.on(Hls.Events.MANIFEST_PARSED,function(event, data){
-            const availableQualitys = hls.levels.map((l) => l.height)
-            console.log("availableQualitys",availableQualitys)  
-        })
+        var hlsPlayerEvents = new hlsEvents();
+        hlsPlayerEvents.hlsJsEvents();
         
         hls.attachMedia(video);
       }

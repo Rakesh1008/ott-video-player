@@ -33,6 +33,64 @@ function settingPopup(){
   }
 }
 
+const videoObject = document.querySelector("video")
+
+videoObject.addEventListener("loadeddata", () => {
+    console.log("loadeddata events");
+});
+videoObject.addEventListener("playing", () => {
+    console.log("playing events");
+});
+videoObject.addEventListener("waiting", () => {
+    console.log("waiting events");
+});
+videoObject.addEventListener("seeking", () => {
+    console.log("seeking events");
+});
+videoObject.addEventListener("seeked", () => {
+    console.log("seeked events");
+});
+videoObject.addEventListener("ended", () => {
+    console.log("ended events");
+});
+videoObject.addEventListener("loadedmetadata", () => {
+    console.log("loadedmetadata events");
+});
+videoObject.addEventListener("canplay", () => {
+    console.log("canplay events");
+});
+videoObject.addEventListener("canplaythrough", () => {
+    console.log("canplaythrough events");
+});
+videoObject.addEventListener("durationchange", () => {
+    console.log("durationchange events");
+});
+videoObject.addEventListener("timeupdate", () => {
+    console.log("timeupdate events");
+});
+videoObject.addEventListener("play", () => {
+    console.log("play events");
+});
+videoObject.addEventListener("pause", () => {
+    console.log("pause events");
+});
+videoObject.addEventListener("ratechange", () => {
+    console.log("ratechange events");
+});
+videoObject.addEventListener("volumechange", () => {
+    console.log("volumechange events");
+});
+videoObject.addEventListener("suspend", () => {
+    console.log("suspend events");
+});
+videoObject.addEventListener("emptied", () => {
+    console.log("emptied events");
+});
+videoObject.addEventListener("stalled", () => {
+    console.log("stalled events");
+});
+
+
 function qualitySelections(){
   var playbackQuality = new playback_quality();
     var availableQualitysSelections = playbackQuality.qualityResoulations();
