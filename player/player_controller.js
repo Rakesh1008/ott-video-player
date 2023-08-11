@@ -336,3 +336,9 @@ video.addEventListener("play", () => {
 video.addEventListener("pause", () => {
   videoContainer.classList.add("paused")
 })
+
+hls.on(Hls.Events.DESTROYING,function(event, data){
+  console.log("DESTROYING loaded in player handler")
+  var hlsPlayerEvents = new hlsRegisterEvents();
+  hlsPlayerEvents.hlsJsRemoveEvents();
+})

@@ -1,5 +1,5 @@
 // hls.js events
-function hlsEvents(){
+function hlsRegisterEvents(){
     this.hlsJsEvents = function(){
 
         hls.on(Hls.Events.MEDIA_ATTACHING,function(event, data){
@@ -202,6 +202,210 @@ function hlsEvents(){
             console.log("STREAM_STATE_TRANSITION loaded")
         })
     
+    }
+
+    this.hlsJsRemoveEvents = function(){
+
+            hls.off(Hls.Events.MEDIA_ATTACHING,function(event, data){
+                console.log("MEDIA_ATTACHING loaded")
+            })
+        
+            hls.off(Hls.Events.MEDIA_ATTACHED,function(event, data){
+                console.log(" MEDIA_ATTACHED loaded")
+            })
+        
+            hls.off(Hls.Events.MEDIA_DETACHING,function(event, data){
+                console.log("MEDIA_DETACHING loaded")
+            })
+        
+            hls.off(Hls.Events.MEDIA_DETACHED,function(event, data){
+                console.log("MEDIA_DETACHED loaded")
+            })
+        
+            hls.off(Hls.Events.BUFFER_RESET,function(event, data){
+                console.log("BUFFER_RESET loaded")
+            })
+        
+            hls.off(Hls.Events.BUFFER_CODECS,function(event, data){
+                console.log("BUFFER_CODECS loaded")
+            })
+        
+            hls.off(Hls.Events.BUFFER_CREATED,function(event, data){
+                console.log("BUFFER_CREATED loaded")
+            })
+        
+            hls.off(Hls.Events.BUFFER_APPENDING,function(event, data){
+                console.log("BUFFER_APPENDING loaded")
+            })
+        
+            hls.off(Hls.Events.BUFFER_EOS,function(event, data){
+                console.log("BUFFER_EOS loaded")
+            })
+        
+            hls.off(Hls.Events.BUFFER_FLUSHING,function(event, data){
+                console.log("BUFFER_FLUSHING loaded")
+            })
+        
+            hls.off(Hls.Events.BUFFER_FLUSHED,function(event, data){
+                console.log("BUFFER_FLUSHED loaded")
+            })
+        
+            hls.off(Hls.Events.MANIFEST_LOADING,function(event, data){
+                console.log("MANIFEST_LOADING loaded")
+            })
+        
+            hls.off(Hls.Events.MANIFEST_LOADED,function(event, data){
+                console.log("MANIFEST_LOADED loaded")
+            })
+        
+            hls.off(Hls.Events.MANIFEST_PARSED,function(event, data){
+                console.log("MANIFEST_PARSED loaded")
+            })
+        
+            hls.off(Hls.Events.LEVEL_SWITCHING,function(event, data){
+                console.log("LEVEL_SWITCHING loaded")
+            })
+        
+            hls.off(Hls.Events.LEVEL_SWITCHED,function(event, data){
+                console.log("LEVEL_SWITCHED loaded")
+            })
+        
+            hls.off(Hls.Events.LEVEL_LOADING,function(event, data){
+                console.log("LEVEL_LOADING loaded")
+            })
+        
+            hls.off(Hls.Events.LEVEL_LOADED,function(event, data){
+                console.log("LEVEL_LOADED loaded")
+            })
+        
+            hls.off(Hls.Events.LEVEL_UPDATED,function(event, data){
+                console.log("LEVEL_UPDATED loaded")
+            })
+        
+            hls.off(Hls.Events.LEVEL_PTS_UPDATED,function(event, data){
+                console.log("LEVEL_PTS_UPDATED loaded")
+            })
+        
+            hls.off(Hls.Events.AUDIO_TRACKS_UPDATED,function(event, data){
+                console.log("AUDIO_TRACKS_UPDATED loaded")
+            })
+        
+            hls.off(Hls.Events.AUDIO_TRACK_SWITCHING,function(event, data){
+                console.log("AUDIO_TRACK_SWITCHING loaded")
+            })
+        
+            hls.off(Hls.Events.AUDIO_TRACK_SWITCHED,function(event, data){
+                console.log("AUDIO_TRACK_SWITCHED loaded")
+            })
+        
+            hls.off(Hls.Events.AUDIO_TRACK_LOADING,function(event, data){
+                console.log("AUDIO_TRACK_LOADING loaded")
+            })
+        
+            hls.off(Hls.Events.AUDIO_TRACK_LOADED,function(event, data){
+                console.log("AUDIO_TRACK_LOADED loaded")
+            })
+        
+            hls.off(Hls.Events.SUBTITLE_TRACKS_UPDATED,function(event, data){
+                console.log("SUBTITLE_TRACKS_UPDATED loaded")
+            })
+        
+            hls.off(Hls.Events.SUBTITLE_TRACK_SWITCH,function(event, data){
+                console.log("SUBTITLE_TRACK_SWITCH loaded")
+            })
+        
+            hls.off(Hls.Events.SUBTITLE_TRACK_LOADING,function(event, data){
+                console.log("SUBTITLE_TRACK_LOADING loaded")
+            })
+        
+            hls.off(Hls.Events.SUBTITLE_TRACK_LOADED,function(event, data){
+                console.log("SUBTITLE_TRACK_LOADED loaded")
+            })
+        
+            hls.off(Hls.Events.SUBTITLE_FRAG_PROCESSED,function(event, data){
+                console.log("SUBTITLE_FRAG_PROCESSED loaded")
+            })
+        
+            hls.off(Hls.Events.INIT_PTS_FOUND,function(event, data){
+                console.log("INIT_PTS_FOUND loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_LOADING,function(event, data){
+                console.log("FRAG_LOADING loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_LOAD_PROGRESS,function(event, data){
+                console.log("FRAG_LOAD_PROGRESS loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_LOAD_EMERGENCY_ABORTED,function(event, data){
+                console.log("FRAG_LOAD_EMERGENCY_ABORTED loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_LOADED,function(event, data){
+                console.log("FRAG_LOADED loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_DECRYPTED,function(event, data){
+                console.log("FRAG_DECRYPTED loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_PARSING_INIT_SEGMENT,function(event, data){
+                console.log("FRAG_PARSING_INIT_SEGMENT loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_PARSING_USERDATA,function(event, data){
+                console.log("FRAG_PARSING_USERDATA loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_PARSING_METADATA,function(event, data){
+                console.log("FRAG_PARSING_METADATA loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_PARSING_DATA,function(event, data){
+                console.log("FRAG_PARSING_DATA loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_PARSED,function(event, data){
+                console.log("FRAG_PARSED loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_BUFFERED,function(event, data){
+                console.log("FRAG_BUFFERED loaded")
+            })
+        
+            hls.off(Hls.Events.FRAG_CHANGED,function(event, data){
+                console.log("FRAG_CHANGED loaded")
+            })
+        
+            hls.off(Hls.Events.FPS_DROP,function(event, data){
+                console.log("FPS_DROP loaded")
+            })
+        
+            hls.off(Hls.Events.FPS_DROP_LEVEL_CAPPING,function(event, data){
+                console.log("FPS_DROP_LEVEL_CAPPING loaded")
+            })
+        
+            hls.off(Hls.Events.ERROR,function(event, data){
+                console.log("ERROR loaded")
+            })
+        
+            hls.off(Hls.Events.DESTROYING,function(event, data){
+                console.log("DESTROYING loaded")
+            })
+        
+            hls.off(Hls.Events.KEY_LOADING,function(event, data){
+                console.log("KEY_LOADING loaded")
+            })
+        
+            hls.off(Hls.Events.KEY_LOADED,function(event, data){
+                console.log("KEY_LOADED loaded")
+            })
+        
+            hls.off(Hls.Events.STREAM_STATE_TRANSITION,function(event, data){
+                console.log("STREAM_STATE_TRANSITION loaded")
+            })
+        
     }
 }
 

@@ -25,7 +25,7 @@ function init(){
         window.hls = new Hls();
         hls.loadSource(videoSrc);
 
-        var hlsPlayerEvents = new hlsEvents();
+        var hlsPlayerEvents = new hlsRegisterEvents();
         hlsPlayerEvents.hlsJsEvents();
         
         hls.attachMedia(video);
