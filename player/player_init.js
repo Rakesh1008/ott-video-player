@@ -1,5 +1,5 @@
-let hlsjs = false;
-let shakajs = true;
+window.hlsjs = false;
+window.shakajs = true;
 
 (function () {
     let player_container = document.getElementById("playerDiv");
@@ -72,8 +72,6 @@ async function initPlayer() {
       }
     }
   });
-  
-  player.configure({ abr: { enabled: false }})
 
   player.getNetworkingEngine().registerRequestFilter(function(type, request) {
     // Only add headers to license requests:

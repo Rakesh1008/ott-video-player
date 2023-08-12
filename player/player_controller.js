@@ -26,7 +26,11 @@ function settingPopup(){
     settingPopupDiv = document.createElement("div")
     settingPopupDiv.setAttribute("class","settingDiv");
     videoContainer.appendChild(settingPopupDiv)
-    qualitySelections()
+    if(hlsjs == true){
+      qualitySelections()
+    } else {
+      shakaQualitySelections()
+    }
   } else {
     var qualityPopup = document.getElementsByClassName("settingDiv");
     qualityPopup[0].remove()
@@ -93,7 +97,7 @@ videoObject.addEventListener("stalled", () => {
 
 function qualitySelections(){
   var playbackQuality = new playback_quality();
-    var availableQualitysSelections = playbackQuality.qualityResoulations();
+  var availableQualitysSelections = playbackQuality.qualityResoulations();
     const availableQualitys = hls.levels.map((l) => l.height)
 
     for(var i=0; i<availableQualitys.length; i++){
@@ -116,6 +120,36 @@ function qualitySelections(){
         }
       }
     }
+}
+
+function shakaQualitySelections(){
+  var playbackQuality = new playback_quality();
+  var availableQualitysSelections = playbackQuality.qualityResoulations();
+  var track = player.getVariantTracks().map((l) => l.height)
+  var availbleQuality = player.getVariantTracks();
+
+  player.configure({ abr: { enabled: false }})
+  
+  for(var i=0; i<track.length; i++){
+    if(track[i] >= 360){
+      for(var j=0; j<availableQualitysSelections.length;j++){
+        if(availableQualitysSelections[j].height === track[i]){
+          qualityDiv= document.createElement("div")
+          qualityDiv.setAttribute("class", "qualityDiv")
+          qualityDiv.setAttribute("id", track[i])
+          qualityDiv.innerHTML = availableQualitysSelections[j].quality
+          settingPopupDiv.appendChild(qualityDiv)
+
+          qualityDiv.addEventListener("click", function (e) {
+            const findQualityHeight = track.find(number => number == e.target.getAttribute('id'));
+            const findQualityIndex = track.findIndex((number) => number == findQualityHeight);
+            console.log("found", findQualityHeight, findQualityIndex);
+            player.selectVariantTrack(availbleQuality[findQualityIndex], true);
+          });
+        }
+      }
+    }
+  }
 }
 
 function myFunction() {
@@ -337,9 +371,10 @@ video.addEventListener("pause", () => {
   videoContainer.classList.add("paused")
 })
 
-  hls?.hls.on(Hls.Events.DESTROYING,function(event, data){
+if(hlsjs == true){
+  hls.on(Hls.Events.DESTROYING,function(event, data){
     console.log("DESTROYING loaded in player handler")
     var hlsPlayerEvents = new hlsRegisterEvents();
     hlsPlayerEvents.hlsJsRemoveEvents();
   })
-
+}
