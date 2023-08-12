@@ -26,7 +26,7 @@ function settingPopup(){
     settingPopupDiv = document.createElement("div")
     settingPopupDiv.setAttribute("class","settingDiv");
     videoContainer.appendChild(settingPopupDiv)
-    if(hlsjs == true){
+    if(hlsjs){
       qualitySelections()
     } else {
       shakaQualitySelections()

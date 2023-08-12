@@ -17,9 +17,9 @@ window.shakajs = true;
     player_container.appendChild(video_ele);
 
     if(hlsjs === true){
-        init();
-    } else {
-        initApp()
+        init()
+    } else if(shakajs === true) {
+        initShakaApp()
     }
 })()
 
@@ -43,7 +43,7 @@ function init(){
 const manifestUri =
     'https://cdn.bitmovin.com/content/assets/art-of-motion_drm/mpds/11331.mpd';
 
-function initApp() {
+function initShakaApp() {
   // Install built-in polyfills to patch browser incompatibilities.
   shaka.polyfill.installAll();
 
@@ -115,4 +115,4 @@ function onError(error) {
   console.error('Error code', error.code, 'object', error);
 }
 
-document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('DOMContentLoaded', initShakaApp);
