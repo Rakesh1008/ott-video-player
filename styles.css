@@ -256,3 +256,18 @@ video {
 .timeline-container:hover .timeline {
   height: 100%;
 }
+
+.settingDiv{
+  position: absolute;
+  width: 20%;
+  height: 50%;
+  background-color: rebeccapurple;
+  cursor: pointer;
+  bottom: 11%;
+  left: 60%;
+}
+
+.qualityDiv{
+  margin-left: 20%;
+  margin-top: 18%;
+}

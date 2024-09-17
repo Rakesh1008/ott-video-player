@@ -12,7 +12,149 @@ const thumbnailImg = document.querySelector(".thumbnail-img")
 const volumeSlider = document.querySelector(".volume-slider")
 const videoContainer = document.querySelector(".video-container")
 const timelineContainer = document.querySelector(".timeline-container")
+const settingBtn = document.querySelector(".setting-btn")
 const video = document.querySelector("video")
+
+//setting button
+settingBtn.addEventListener("click", settingPopup)
+
+let settingPopupDiv;
+let qualityDiv
+
+function settingPopup(){
+  if(document.getElementsByClassName("settingDiv").length == 0){
+    settingPopupDiv = document.createElement("div")
+    settingPopupDiv.setAttribute("class","settingDiv");
+    videoContainer.appendChild(settingPopupDiv)
+    if(hlsjs){
+      qualitySelections()
+    } else {
+      shakaQualitySelections()
+    }
+  } else {
+    var qualityPopup = document.getElementsByClassName("settingDiv");
+    qualityPopup[0].remove()
+  }
+}
+
+const videoObject = document.querySelector("video")
+
+videoObject.addEventListener("loadeddata", () => {
+    console.log("loadeddata events");
+});
+videoObject.addEventListener("playing", () => {
+    console.log("playing events");
+});
+videoObject.addEventListener("waiting", () => {
+    console.log("waiting events");
+});
+videoObject.addEventListener("seeking", () => {
+    console.log("seeking events");
+});
+videoObject.addEventListener("seeked", () => {
+    console.log("seeked events");
+});
+videoObject.addEventListener("ended", () => {
+    console.log("ended events");
+});
+videoObject.addEventListener("loadedmetadata", () => {
+    console.log("loadedmetadata events");
+});
+videoObject.addEventListener("canplay", () => {
+    console.log("canplay events");
+});
+videoObject.addEventListener("canplaythrough", () => {
+    console.log("canplaythrough events");
+});
+videoObject.addEventListener("durationchange", () => {
+    console.log("durationchange events");
+});
+videoObject.addEventListener("timeupdate", () => {
+    console.log("timeupdate events");
+});
+videoObject.addEventListener("play", () => {
+    console.log("play events");
+});
+videoObject.addEventListener("pause", () => {
+    console.log("pause events");
+});
+videoObject.addEventListener("ratechange", () => {
+    console.log("ratechange events");
+});
+videoObject.addEventListener("volumechange", () => {
+    console.log("volumechange events");
+});
+videoObject.addEventListener("suspend", () => {
+    console.log("suspend events");
+});
+videoObject.addEventListener("emptied", () => {
+    console.log("emptied events");
+});
+videoObject.addEventListener("stalled", () => {
+    console.log("stalled events");
+});
+
+
+function qualitySelections(){
+  var playbackQuality = new playback_quality();
+  var availableQualitysSelections = playbackQuality.qualityResoulations();
+    const availableQualitys = hls.levels.map((l) => l.height)
+
+    for(var i=0; i<availableQualitys.length; i++){
+      if(availableQualitys[i] >= 480){
+      for(var j=0; j<availableQualitysSelections.length;j++){
+          if(availableQualitysSelections[j].height === availableQualitys[i]){
+            qualityDiv= document.createElement("div")
+            qualityDiv.setAttribute("class", "qualityDiv")
+            qualityDiv.setAttribute("id", availableQualitys[i])
+            qualityDiv.innerHTML = availableQualitysSelections[j].quality
+            settingPopupDiv.appendChild(qualityDiv)
+
+            qualityDiv.addEventListener("click", function (e) {
+              const findQualityHeight = availableQualitys.find(number => number == e.target.getAttribute('id'));
+              const findQualityIndex = availableQualitys.findIndex((number) => number == findQualityHeight);
+              console.log("found", findQualityHeight, findQualityIndex);
+              hls.currentLevel = findQualityIndex
+            });
+          }
+        }
+      }
+    }
+}
+
+function shakaQualitySelections(){
+  var playbackQuality = new playback_quality();
+  var availableQualitysSelections = playbackQuality.qualityResoulations();
+  var track = player.getVariantTracks().map((l) => l.height)
+  var availbleQuality = player.getVariantTracks();
+
+  player.configure({ abr: { enabled: false }})
+  
+  for(var i=0; i<track.length; i++){
+    if(track[i] >= 360){
+      for(var j=0; j<availableQualitysSelections.length;j++){
+        if(availableQualitysSelections[j].height === track[i]){
+          qualityDiv= document.createElement("div")
+          qualityDiv.setAttribute("class", "qualityDiv")
+          qualityDiv.setAttribute("id", track[i])
+          qualityDiv.innerHTML = availableQualitysSelections[j].quality
+          settingPopupDiv.appendChild(qualityDiv)
+
+          qualityDiv.addEventListener("click", function (e) {
+            const findQualityHeight = track.find(number => number == e.target.getAttribute('id'));
+            const findQualityIndex = track.findIndex((number) => number == findQualityHeight);
+            console.log("found", findQualityHeight, findQualityIndex);
+            player.selectVariantTrack(availbleQuality[findQualityIndex], true);
+          });
+        }
+      }
+    }
+  }
+}
+
+function myFunction() {
+  console.log("Click Event");
+}
 
 document.addEventListener("keydown", e => {
   const tagName = document.activeElement.tagName.toLowerCase()
@@ -52,14 +194,14 @@ document.addEventListener("keydown", e => {
 })
 
 // Timeline
-timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
+// timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
 timelineContainer.addEventListener("mousedown", toggleScrubbing)
 document.addEventListener("mouseup", e => {
   if (isScrubbing) toggleScrubbing(e)
 })
-document.addEventListener("mousemove", e => {
-  if (isScrubbing) handleTimelineUpdate(e)
-})
+// document.addEventListener("mousemove", e => {
+//   if (isScrubbing) handleTimelineUpdate(e)
+// })
 
 let isScrubbing = false
 let wasPaused
@@ -76,7 +218,7 @@ function toggleScrubbing(e) {
     if (!wasPaused) video.play()
   }
 
-  handleTimelineUpdate(e)
+  // handleTimelineUpdate(e)
 }
 
 function handleTimelineUpdate(e) {
@@ -111,13 +253,13 @@ function changePlaybackSpeed() {
 const captions = video.textTracks[0]
 captions.mode = "hidden"
 
-captionsBtn.addEventListener("click", toggleCaptions)
+// captionsBtn.addEventListener("click", toggleCaptions)
 
-function toggleCaptions() {
-  const isHidden = captions.mode === "hidden"
-  captions.mode = isHidden ? "showing" : "hidden"
-  videoContainer.classList.toggle("captions", isHidden)
-}
+// function toggleCaptions() {
+//   const isHidden = captions.mode === "hidden"
+//   captions.mode = isHidden ? "showing" : "hidden"
+//   videoContainer.classList.toggle("captions", isHidden)
+// }
 
 // Duration
 video.addEventListener("loadeddata", () => {
@@ -228,3 +370,11 @@ video.addEventListener("play", () => {
 video.addEventListener("pause", () => {
   videoContainer.classList.add("paused")
 })
+
+if(hlsjs == true){
+  hls.on(Hls.Events.DESTROYING,function(event, data){
+    console.log("DESTROYING loaded in player handler")
+    var hlsPlayerEvents = new hlsRegisterEvents();
+    hlsPlayerEvents.hlsJsRemoveEvents();
+  })
+}
